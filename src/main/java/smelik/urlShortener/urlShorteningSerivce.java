@@ -26,7 +26,9 @@ public class urlShorteningSerivce {
             }
             
             if(DB.selectCode(con, code) == null){
-                DB.insert(con, new ShortenedUrl(code, longUrl));
+                if(!DB.insert(con, new ShortenedUrl(code, longUrl))){
+                    return null;
+                }
                 DB.close(con);
                 return code;
             }
